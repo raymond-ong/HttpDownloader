@@ -48,6 +48,84 @@ namespace HttpDownloader
             _logUtil.AddLog("Finished Download");
         }
 
+
+        internal async void FollowStreamAsync(string url, string headers, string filePath)
+        {
+            _logUtil.AddLog("Started Following");
+            HttpClient client = new HttpClient();
+            client.Timeout = Timeout.InfiniteTimeSpan;
+            try
+            {
+                HttpRequestMessage requestMessage = new HttpRequestMessage();
+                Dictionary<string, string> headersParsed = ParseHeaders(headers);
+                requestMessage.Method = HttpMethod.Get;
+                requestMessage.RequestUri = new Uri(url);
+                foreach (var kvp in headersParsed)
+                {
+                    requestMessage.Headers.Add(kvp.Key, kvp.Value);
+                }
+                var response = await client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead);
+                string m3u8Contents = await response.Content.ReadAsStringAsync();
+                FollowM3U8(m3u8Contents, url, filePath, headersParsed);
+            }
+            catch (Exception ex)
+            {
+                _logUtil.AddLog(ex.ToString());
+            }
+
+            _logUtil.AddLog("Finished Download");
+        }
+
+        private async void FollowM3U8(string m3u8Contents, string url, string filePath, Dictionary<string, string> headersParsed)
+        {
+            // [1] Determine the base url
+            string m3u8Keyword = "index.m3u8";
+            int baseUrlEnd = url.IndexOf(m3u8Keyword);
+            if (baseUrlEnd < 0)
+            {
+                throw new Exception("Cannot determine base url");
+            }
+
+            string baseUrl = url.Substring(0, baseUrlEnd);
+
+            // [2] Parse each segment
+            string[] lines = m3u8Contents.Split("\n");
+            foreach(string line in lines)
+            {
+                if (line.StartsWith('#'))
+                {
+                    continue;
+                }
+
+                _logUtil.AddLog($"Following {line}");
+
+                try
+                {
+                    HttpClient client = new HttpClient();
+                    client.Timeout = Timeout.InfiniteTimeSpan;
+                    HttpRequestMessage requestMessage = new HttpRequestMessage();
+                    foreach (var kvp in headersParsed)
+                    {
+                        requestMessage.Headers.Add(kvp.Key, kvp.Value);
+                    }
+                    requestMessage.RequestUri = new Uri(baseUrl+ line);
+
+                    var response = await client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead);
+                    using (Stream streamToReadFrom = await response.Content.ReadAsStreamAsync())
+                    {
+                        using (Stream streamToWriteTo = File.Open(filePath, FileMode.Create | FileMode.Append))
+                        {
+                            await streamToReadFrom.CopyToAsync(streamToWriteTo);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logUtil.AddLog(ex.ToString());
+                }
+            }
+        }
+
         private Dictionary<string, string> ParseHeaders(string headers)
         {
             Dictionary<string, string> retDict = new Dictionary<string, string>();

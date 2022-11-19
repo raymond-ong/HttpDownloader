@@ -42,5 +42,23 @@ namespace HttpDownloader
 
             httpUtil.StartDownloadAsync(txtUrl.Text, txtHeaders.Text, txtFilePath.Text);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtUrl.Text) ||
+                string.IsNullOrEmpty(txtHeaders.Text) ||
+                string.IsNullOrEmpty(txtFilePath.Text))
+            {
+                MessageBox.Show("Invalid Input Parameters. Please don't leave any field blank.");
+                return;
+            }
+
+            httpUtil.FollowStreamAsync(txtUrl.Text, txtHeaders.Text, txtFilePath.Text);
+        }
+
+        private void txtHeaders_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -41,6 +41,7 @@ namespace HttpDownloader
             this.btnSend = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +53,8 @@ namespace HttpDownloader
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(718, 23);
             this.txtUrl.TabIndex = 0;
-            this.txtUrl.Text = "https://xxx";
+            this.txtUrl.Text = "https://nlv15.xyz.bingo/8/9/6/896a76279d8cd8fe79830e6cd476bbf5/stream/480p/index." +
+    "m3u8?h=f290f989e546e80dd4ddb826229fe393&e=1668872259";
             // 
             // txtHeaders
             // 
@@ -64,6 +66,7 @@ namespace HttpDownloader
             this.txtHeaders.Size = new System.Drawing.Size(719, 206);
             this.txtHeaders.TabIndex = 1;
             this.txtHeaders.Text = resources.GetString("txtHeaders.Text");
+            this.txtHeaders.TextChanged += new System.EventHandler(this.txtHeaders_TextChanged);
             // 
             // txtFilePath
             // 
@@ -73,7 +76,7 @@ namespace HttpDownloader
             this.txtFilePath.Name = "txtFilePath";
             this.txtFilePath.Size = new System.Drawing.Size(626, 23);
             this.txtFilePath.TabIndex = 2;
-            this.txtFilePath.Text = "D:\\PCBackup\\HttpDownload\\file1.mp4";
+            this.txtFilePath.Text = "D:\\PCBackup\\HttpDownload\\file3.mp4";
             // 
             // label1
             // 
@@ -128,7 +131,7 @@ namespace HttpDownloader
             // 
             this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSend.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnSend.Location = new System.Drawing.Point(706, 306);
+            this.btnSend.Location = new System.Drawing.Point(13, 306);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(82, 36);
             this.btnSend.TabIndex = 10;
@@ -149,11 +152,24 @@ namespace HttpDownloader
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Logs";
             // 
-            // Form1
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(101, 306);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(253, 36);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Send and Follow Stream";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 550);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.btnBrowse);
@@ -163,7 +179,7 @@ namespace HttpDownloader
             this.Controls.Add(this.txtFilePath);
             this.Controls.Add(this.txtHeaders);
             this.Controls.Add(this.txtUrl);
-            this.Name = "Form1";
+            this.Name = "Main";
             this.Text = "HTTP Download";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -185,6 +201,7 @@ namespace HttpDownloader
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
