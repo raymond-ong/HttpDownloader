@@ -19,6 +19,8 @@ namespace HttpDownloader
         {
             string newMsg = $"[{DateTime.Now.ToLongTimeString()}] {msg}\r\n";
             _txtBox.Text += newMsg;
+            _txtBox.SelectionStart = _txtBox.Text.Length;
+            _txtBox.SelectionLength = 0;
         }
 
         public void ClearLog()

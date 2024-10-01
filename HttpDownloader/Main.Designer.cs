@@ -42,6 +42,7 @@ namespace HttpDownloader
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,8 +54,8 @@ namespace HttpDownloader
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(718, 23);
             this.txtUrl.TabIndex = 0;
-            this.txtUrl.Text = "https://nlv15.xyz.bingo/8/9/6/896a76279d8cd8fe79830e6cd476bbf5/stream/480p/index." +
-    "m3u8?h=f290f989e546e80dd4ddb826229fe393&e=1668872259";
+            this.txtUrl.Text = "https://s205.skyearth.xyz/vod1/7e/bd/897nxolk_5c49e63931008f03cadd4bf052a24576dd/" +
+    "720/v.m3u8";
             // 
             // txtHeaders
             // 
@@ -164,11 +165,24 @@ namespace HttpDownloader
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button2.Location = new System.Drawing.Point(360, 306);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(253, 36);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Send and Follow Stream2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.OnClickSendAndFollowSteam2);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 550);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSend);
@@ -202,6 +216,7 @@ namespace HttpDownloader
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 

@@ -53,12 +53,26 @@ namespace HttpDownloader
                 return;
             }
 
-            httpUtil.FollowStreamAsync(txtUrl.Text, txtHeaders.Text, txtFilePath.Text);
+            httpUtil.FollowStreamAsync(txtUrl.Text, txtHeaders.Text, txtFilePath.Text, false);
         }
 
         private void txtHeaders_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        // [2024-Sept] Use ♦ as header delim to avoid clash with colob
+        private void OnClickSendAndFollowSteam2(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtUrl.Text) ||
+                string.IsNullOrEmpty(txtHeaders.Text) ||
+                string.IsNullOrEmpty(txtFilePath.Text))
+            {
+                MessageBox.Show("Invalid Input Parameters. Please don't leave any field blank.");
+                return;
+            }
+
+            httpUtil.FollowStreamAsync(txtUrl.Text, txtHeaders.Text, txtFilePath.Text, true);
         }
     }
 }

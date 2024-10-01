@@ -49,7 +49,7 @@ namespace HttpDownloader
         }
 
 
-        internal async void FollowStreamAsync(string url, string headers, string filePath)
+        internal async void FollowStreamAsync(string url, string headers, string filePath, bool useNewParseHeader)
         {
             _logUtil.AddLog("Started Following");
             HttpClient client = new HttpClient();
@@ -57,15 +57,23 @@ namespace HttpDownloader
             try
             {
                 HttpRequestMessage requestMessage = new HttpRequestMessage();
-                Dictionary<string, string> headersParsed = ParseHeaders(headers);
+
+                Dictionary<string, string> headersParsed = useNewParseHeader ? ParseHeaders2(headers) : ParseHeaders(headers);
                 requestMessage.Method = HttpMethod.Get;
                 requestMessage.RequestUri = new Uri(url);
                 foreach (var kvp in headersParsed)
                 {
                     requestMessage.Headers.Add(kvp.Key, kvp.Value);
                 }
-                var response = await client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead);
+                //var response = await client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead);
+                var response = await client.SendAsync(requestMessage);
+                response.EnsureSuccessStatusCode();
                 string m3u8Contents = await response.Content.ReadAsStringAsync();
+                var byteArr = await response.Content.ReadAsByteArrayAsync();
+                using (var fs = new FileStream(filePath+"m3u8", FileMode.Create, FileAccess.Write))
+                {
+                    fs.Write(byteArr, 0, byteArr.Length);
+                }
                 FollowM3U8(m3u8Contents, url, filePath, headersParsed);
             }
             catch (Exception ex)
@@ -79,7 +87,8 @@ namespace HttpDownloader
         private async void FollowM3U8(string m3u8Contents, string url, string filePath, Dictionary<string, string> headersParsed)
         {
             // [1] Determine the base url
-            string m3u8Keyword = "index.m3u8";
+            //string m3u8Keyword = "index.m3u8";
+            string m3u8Keyword = "v.m3u8";
             int baseUrlEnd = url.IndexOf(m3u8Keyword);
             if (baseUrlEnd < 0)
             {
@@ -139,6 +148,21 @@ namespace HttpDownloader
                     int firstColon = line.IndexOf(':');
                     retDict.Add(keyVal[0], line.Substring(firstColon + 1).Trim());
                 }
+            }
+
+            return retDict;
+        }
+
+        // Note: Remove accept-encoding gzip, deflate, br, zstd
+        // Should return text format!
+        private Dictionary<string, string> ParseHeaders2(string headers)
+        {
+            Dictionary<string, string> retDict = new Dictionary<string, string>();
+            string[] lines = headers.Split("\r\n", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            foreach (string line in lines)
+            {
+                string[] keyVal = line.Split('♦');
+                retDict.Add(keyVal[0], keyVal[1]);
             }
 
             return retDict;

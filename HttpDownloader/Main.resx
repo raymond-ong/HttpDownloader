@@ -58,19 +58,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="txtHeaders.Text" xml:space="preserve">
-    <value>GET /8/9/6/896a76279d8cd8fe79830e6cd476bbf5/stream/480p/index.m3u8?h=f290f989e546e80dd4ddb826229fe393&amp;e=1668872259 HTTP/1.1
-Accept: */*
-Accept-Encoding: gzip, deflate, br
-Accept-Language: en-US,en;q=0.6
-Connection: keep-alive
-Host: nlv15.gay.bingo
-Origin: https://gay.bingo
-Referer: https://gay.bingo/
-Sec-Fetch-Dest: empty
-Sec-Fetch-Mode: cors
-Sec-Fetch-Site: same-site
-Sec-GPC: 1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36</value>
+    <value>accept♦ */*
+accept-language♦ en-US,en;q=0.8
+cache-control♦ no-cache
+origin♦ https://javplayer.me
+pragma♦ no-cache
+priority♦ u=1, i
+referer♦ https://javplayer.me/
+sec-ch-ua♦ "Brave";v="129", "Not=A?Brand";v="8", "Chromium";v="129"
+sec-ch-ua-mobile♦ ?0
+sec-ch-ua-platform♦ "Windows"
+sec-fetch-dest♦ empty
+sec-fetch-mode♦ cors
+sec-fetch-site♦ cross-site
+sec-gpc♦ 1
+user-agent♦ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36</value>
   </data>
   <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
